@@ -16,9 +16,15 @@ library(reprex)
 enrollment <- read_excel(path="class_enrollment_summary_by_term2.18.20.xlsx", skip = 3) %>%
   clean_names() %>%
   filter(!is.na(course_name))
+```
+```{r department enrollment}
 top_enrollment <- enrollment %>%
   group_by(course_department) %>%
   summarize(dept_total = sum(total)) %>%
   arrange(desc(dept_total)) %>%
   slice(1:5)
+
 ```
+
+```{r top econ class}
+  
