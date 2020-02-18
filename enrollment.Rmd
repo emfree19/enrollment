@@ -1,0 +1,24 @@
+---
+title: "Enrollment"
+author: "Emma Freeman"
+date: "2/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(tidyverse)
+library(janitor)
+library(reprex)
+```
+```{r read in data}
+enrollment <- read_excel(path="class_enrollment_summary_by_term2.18.20.xlsx", skip = 3) %>%
+  clean_names() %>%
+  filter(!is.na(course_name))
+top_enrollment <- enrollment %>%
+  group_by(course_department) %>%
+  summarize(dept_total = sum(total)) %>%
+  arrange(desc(dept_total)) %>%
+  slice(1:5)
+```
